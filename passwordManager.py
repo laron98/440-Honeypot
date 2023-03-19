@@ -1,0 +1,67 @@
+#Python Password Stuff
+import sqlite3
+import random 
+import string 
+import ccard
+import names
+conn = sqlite3.connect('pythonDB.db')
+
+c = conn.cursor()
+def databaseMake():
+    c.execute("""CREATE TABLE IF NOT EXISTS USER (
+    Password REAL,
+    Username TEXT,
+    PRIMARY KEY (Username))""")
+    c.execute("""CREATE TABLE IF NOT EXISTS CARD (
+        Username TEXT, 
+        Company TEXT, 
+        Fname TEXT, 
+        Lname TEXT, 
+        Number REAL, 
+        Month REAL, 
+        Year REAL, 
+        CVV REAL, 
+        PRIMARY KEY(Number), 
+        FOREIGN KEY(Username) 
+        REFERENCES USER(Username))""")
+
+def newUser(password,username):
+    password = hash(password)
+    c.execute("""INSERT INTO USER (Password, Username) VALUES(?, ?)""",
+													(password, username))
+ 
+    conn.commit()
+def populate():
+    while(line!=""):
+        fname=names.get_first_name()
+        lname=names.get_last_name()
+        month=random.randint(1,12)
+        year=random.randint(24,32)
+        CVV=random.randint(100,999)
+        cmpnum=random.randint(1,3)
+        company=""
+        cardnum=0
+        if(cmpnum==1):
+            company="discover"
+            cardnum=ccard.discover()
+        if(cmpnum==2):
+            company="visa"
+            cardnum=ccard.visa()
+        if(cmpnum==3):
+            company="mastercard"
+            cardnum=ccard.mastercard()
+        password=random.choices(string.ascii_letters, k=8)
+        c.execute("INSERT INTO USER (Password, Username) VALUES(?, ?)",
+													(password, name))
+        c.execute("""INSERT INTO CARD (
+            Username, 
+            Company, 
+            Fname, 
+            Lname, 
+            Number, 
+            Month, 
+            Year, 
+            CVV) 
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?)""",(fname+lname, ,fname,lname,arr[2],month,year,CVV)) 
+        line=data.readline()       
+
