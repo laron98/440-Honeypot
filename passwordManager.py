@@ -1,5 +1,6 @@
 #Python Password Stuff
 import sqlite3
+import datetime
 import random 
 import string 
 import ccard
@@ -32,11 +33,12 @@ def newUser(password,username):
  
     conn.commit()
 def populate():
-    while(line!=""):
+    for i in range(1000):
         fname=names.get_first_name()
         lname=names.get_last_name()
         month=random.randint(1,12)
-        year=random.randint(24,32)
+	c_Year=datetime.datetime.now().year
+        year=random.randint(c_year+1,c_year+8)
         CVV=random.randint(100,999)
         cmpnum=random.randint(1,3)
         company=""
