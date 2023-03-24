@@ -9,22 +9,33 @@ conn = sqlite3.connect('pythonDB.db')
 
 c = conn.cursor()
 def databaseMake():
-    c.execute("""CREATE TABLE IF NOT EXISTS USER (
-    Password REAL,
-    Username TEXT,
-    PRIMARY KEY (Username))""")
-    c.execute("""CREATE TABLE IF NOT EXISTS CARD (
-        Username TEXT, 
-        Company TEXT, 
-        Fname TEXT, 
-        Lname TEXT, 
-        Number REAL, 
-        Month REAL, 
-        Year REAL, 
-        CVV REAL, 
-        PRIMARY KEY(Number), 
-        FOREIGN KEY(Username) 
-        REFERENCES USER(Username))""")
+	c.execute("""CREATE TABLE IF NOT EXISTS USER (
+    		Password REAL,
+    		Username TEXT,
+    		PRIMARY KEY (Username))""")
+	c.execute("""CREATE TABLE IF NOT EXISTS CARD (
+        	Username TEXT, 
+        	Company TEXT, 
+        	Fname TEXT, 
+        	Lname TEXT, 
+        	Number REAL, 
+        	Month REAL, 
+        	Year REAL, 
+        	CVV REAL, 
+        	PRIMARY KEY(Number), 
+        	FOREIGN KEY(Username) 
+        	REFERENCES USER(Username))""")
+	conn.commit();
+def loginInfo(username):
+	c.execute("""SELECT * FROM USER WHERE Username=?""",(username,))
+	userinfo=cursor.fetchall()
+	
+	return userinfo[0]
+def getCards(username):
+	c.execute("""SELECT * FROM CARD WHERE Username=?""",(username,))
+	cards=cursor.fetchall()
+	
+	return cards
 
 def newUser(password,username):
     password = hash(password)
@@ -65,5 +76,5 @@ def populate():
             Year, 
             CVV) 
             VALUES(?, ?, ?, ?, ?, ?, ?, ?)""",(fname+lname, ,fname,lname,arr[2],month,year,CVV)) 
-        line=data.readline()       
+    conn.commit()    
 
