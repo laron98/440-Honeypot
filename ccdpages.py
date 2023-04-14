@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request 
+from flask import Flask, redirect, render_template, request, url_for 
 from flask_sqlalchemy import SQLAlchemy
 from markupsafe import escape
 
@@ -14,10 +14,11 @@ def index():
 
 #sign up page
 @app.route('/signup')
-def signup():
+def sign_up():
     return render_template('signup.html')
 
-@app.route('/submit')
+#checks submitted data from users and if valid puts on database
+@app.route('/signup/verify', methods=['GET','POST'])
 def submit():
     fname = request.form['fname']
     lname = request.form['lname']
@@ -27,10 +28,39 @@ def submit():
     
     if (password == cpassword):
         #To do: enter into data base
-        return render_template('/signup/success')
+        return redirect(url_for('signup/fail'))
+
+    #if passwords don't match have user try again 
+    return redirect(url_for('/submit/success'))
+
+#If user enters incorrect data they are redirected to this page
+@app.route('/submit/fail')
+def sign_up_fail():
+    return render_template('signupfail.html')
+
+#User login page
+@app.route('/login')
+def login():
+    return  render_template('login.html')
+
+@app.route('/login/verify', methods=['GET', 'POST'])
+def login_verf():
+    email = request.form['email']
+    password = request.form['password']
     
-    return render_template('signup.html')
+    #if email exists on database
+    if():
+        #verify credentials with database
+        #if valid login
+        if():
+            return redirect(url_for('/userhome'))
+        else: 
+            return redirect(url_for('login/fail'))
+    else: 
+        return redirect(url_for('/signup/verify'))
+    
 
 if __name__ == '__main__':
     app.run()
+
 
