@@ -26,8 +26,8 @@ def databaseMake():
         	FOREIGN KEY(Username) 
         	REFERENCES USER(Username))""")
 	conn.commit();
-def loginInfo(username):
-	c.execute("""SELECT * FROM USER WHERE Username=?""",(username,))
+def loginInfo(email):
+	c.execute("""SELECT * FROM USER WHERE Username=?""",(email))
 	userinfo=c.fetchall()
 	
 	return userinfo[0]
