@@ -16,6 +16,7 @@ app = Flask(__name__)
 #connects to databases
 sys.path.append('/home/ubuntu/440-Honeypot')
 import passwordManager.py;
+passwordManager.databaseMake()
 
 #Home page
 @app.route('/')
