@@ -14,7 +14,7 @@ class user:
 app = Flask(__name__)
 
 #connects to databases
-sys.path.append('/home/ubuntu/HoneyPotLinkingWork/Temp_Sync_Work')
+sys.path.append('/home/ubuntu/440-Honeypot')
 import passwordManager.py;
 
 #Home page
@@ -82,7 +82,7 @@ def login_verf():
 @app.route('/home')
 def home():
     image_url = 'static\images\cclogo.png'
-    #put data from database to into user class 
+    passwordManager.getCards(userdb.email) #possibly update depending on how we store email
     #userdb = 
     return render_template('home.html', image_url=image_url) #, userdb=userdb) 
 
