@@ -84,7 +84,7 @@ def login_verf():
 def home():
     image_url = 'static\images\cclogo.png'
     email = session.get('email', None)
-    passwordManager.getCards(userdb.email) #possibly update depending on how we store email
+    passwordManager.getCards(email)
     #userdb = 
     return render_template('home.html', image_url=image_url) #, userdb=userdb) 
 
