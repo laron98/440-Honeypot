@@ -11,8 +11,10 @@ c = conn.cursor()
 def databaseMake():
 	c.execute("""CREATE TABLE IF NOT EXISTS USER (
     		Password REAL,
-    		Username TEXT,
-    		PRIMARY KEY (Username))""")
+    		Email TEXT,
+		Fname,
+		Lname,
+    		PRIMARY KEY (Email)""")
 	c.execute("""CREATE TABLE IF NOT EXISTS CARD (
         	Username TEXT, 
         	Company TEXT, 
@@ -26,11 +28,21 @@ def databaseMake():
         	FOREIGN KEY(Username) 
         	REFERENCES USER(Username))""")
 	conn.commit();
-def loginInfo(email):
+def getPassword(email):
 	c.execute("""SELECT * FROM USER WHERE Username=?""",(email))
 	userinfo=c.fetchall()
 	
 	return userinfo[0]
+def getFName(email):
+	c.execute("""SELECT * FROM USER WHERE Username=?""",(email))
+	userinfo=c.fetchall()
+	
+	return userinfo[2]
+def getLName(email):
+	c.execute("""SELECT * FROM USER WHERE Username=?""",(email))
+	userinfo=c.fetchall()
+	
+	return userinfo[3]
 def getCards(email):
     c.execute("""SELECT * FROM CARD WHERE Email=?""",(email))
     cards=cursor.fetchall()
@@ -53,38 +65,38 @@ def newUser(password,username):
 													(password, username))
  
     conn.commit()
-def populate():
-    for i in range(1000):
-        fname=names.get_first_name()
-        lname=names.get_last_name()
-        month=random.randint(1,12)
-	c_Year=datetime.datetime.now().year
-	year=random.randint(c_year+1,c_year+8)
-        CVV=random.randint(100,999)
-        cmpnum=random.randint(1,3)
-        company=""
-        cardnum=0
-        if(cmpnum==1):
-            company="discover"
-            cardnum=ccard.discover()
-        if(cmpnum==2):
-            company="visa"
-            cardnum=ccard.visa()
-        if(cmpnum==3):
-            company="mastercard"
-            cardnum=ccard.mastercard()
-        password=random.choices(string.ascii_letters, k=8)
-        c.execute("INSERT INTO USER (Password, Username) VALUES(?, ?)",
-													(password, name))
-        c.execute("""INSERT INTO CARD (
-            Username, 
-            Company, 
-            Fname, 
-            Lname, 
-            Number, 
-            Month, 
-            Year, 
-            CVV) 
-            VALUES(?, ?, ?, ?, ?, ?, ?, ?)""",(fname+lname, ,fname,lname,arr[2],month,year,CVV)) 
-    conn.commit()    
+# def populate():
+#     for i in range(1000):
+#         fname=names.get_first_name()
+#         lname=names.get_last_name()
+#         month=random.randint(1,12)
+# 	c_Year=datetime.datetime.now().year
+# 	year=random.randint(c_year+1,c_year+8)
+#         CVV=random.randint(100,999)
+#         cmpnum=random.randint(1,3)
+#         company=""
+#         cardnum=0
+#         if(cmpnum==1):
+#             company="discover"
+#             cardnum=ccard.discover()
+#         if(cmpnum==2):
+#             company="visa"
+#             cardnum=ccard.visa()
+#         if(cmpnum==3):
+#             company="mastercard"
+#             cardnum=ccard.mastercard()
+#         password=random.choices(string.ascii_letters, k=8)
+#         c.execute("INSERT INTO USER (Password, Username) VALUES(?, ?)",
+# 													(password, name))
+#         c.execute("""INSERT INTO CARD (
+#             Username, 
+#             Company, 
+#             Fname, 
+#             Lname, 
+#             Number, 
+#             Month, 
+#             Year, 
+#             CVV) 
+#             VALUES(?, ?, ?, ?, ?, ?, ?, ?)""",(fname+lname, ,fname,lname,arr[2],month,year,CVV)) 
+#     conn.commit()    
 
