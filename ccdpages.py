@@ -40,7 +40,7 @@ def submit():
     cpassword = request.form['cpassword']
     
     if (password == cpassword):
-        #To do: enter into data base
+        passwordManager.newUser(newuser.password,newuser.email,newuser.fname,newuser.lname)
         newuser.pword = password
         return redirect(url_for('signup/fail'))
 
@@ -67,13 +67,12 @@ def login():
 @app.route('/login/verify', methods=['GET', 'POST'])
 def login_verf():
     email = request.form['email']
-    password = request.form['password']
-    
+    password = request.form['password']    
     #if email exists on database
-    if():
+    if(passwordManager.checkEmail(email)):
         #verify credentials with database
         #if valid login
-        if():
+        if(passwordManager.loginInfo(email)==password):
             return redirect(url_for('/home'))
         else: 
             return redirect(url_for('login/fail'))
