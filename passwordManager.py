@@ -28,11 +28,11 @@ def databaseMake():
 	conn.commit();
 def loginInfo(username):
 	c.execute("""SELECT * FROM USER WHERE Username=?""",(username,))
-	userinfo=cursor.fetchall()
+	userinfo=c.fetchall()
 	
 	return userinfo[0]
-def getCards(username):
-    c.execute("""SELECT * FROM CARD WHERE Email=?""",(Email))
+def getCards(email):
+    c.execute("""SELECT * FROM CARD WHERE Email=?""",(email))
     cards=cursor.fetchall()
     rval=""
     for card in cards:
@@ -43,8 +43,8 @@ def getCards(username):
     rval=rval[:-2]
     return rval
 
-def checkEmail(Email):
-    c.execute("""SELECT * FROM USER WHERE Email=""")
+def checkEmail(email):
+    c.execute("""SELECT * FROM USER WHERE Email=?""",(email)
     result=c.fetchone()
     return len(result)!=0
 def newUser(password,username):
@@ -59,7 +59,7 @@ def populate():
         lname=names.get_last_name()
         month=random.randint(1,12)
 	c_Year=datetime.datetime.now().year
-        year=random.randint(c_year+1,c_year+8)
+	year=random.randint(c_year+1,c_year+8)
         CVV=random.randint(100,999)
         cmpnum=random.randint(1,3)
         company=""
