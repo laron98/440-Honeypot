@@ -43,7 +43,10 @@ def getCards(username):
     rval=rval[:-2]
     return rval
 
-
+def checkEmail(Email):
+    c.execute("""SELECT * FROM USER WHERE Email=""")
+    result=c.fetchone()
+    return len(result)!=0
 def newUser(password,username):
     password = hash(password)
     c.execute("""INSERT INTO USER (Password, Username) VALUES(?, ?)""",
