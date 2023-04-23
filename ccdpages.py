@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, url_for, send_from_directory 
+from flask import Flask, redirect, render_template, request, url_for, send_from_directory, session 
 from flask_sqlalchemy import SQLAlchemy
 from markupsafe import escape
 import os
@@ -73,6 +73,7 @@ def login_verf():
         #verify credentials with database
         #if valid login
         if(passwordManager.loginInfo(email)==password):
+            session['email'] = email
             return redirect(url_for('/home'))
         else: 
             return redirect(url_for('login/fail'))
@@ -82,6 +83,7 @@ def login_verf():
 @app.route('/home')
 def home():
     image_url = 'static\images\cclogo.png'
+    email = session.get('email', None)
     passwordManager.getCards(userdb.email) #possibly update depending on how we store email
     #userdb = 
     return render_template('home.html', image_url=image_url) #, userdb=userdb) 
