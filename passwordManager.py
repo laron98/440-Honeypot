@@ -32,10 +32,17 @@ def loginInfo(username):
 	
 	return userinfo[0]
 def getCards(username):
-	c.execute("""SELECT * FROM CARD WHERE Username=?""",(username,))
-	cards=cursor.fetchall()
-	
-	return cards
+    c.execute("""SELECT * FROM CARD WHERE Email=?""",(Email))
+    cards=cursor.fetchall()
+    rval=""
+    for card in cards:
+         card_str=""
+         for element in card:
+              card_str+=element+", "
+         card_str+="\n"
+    rval=rval[:-2]
+    return rval
+
 
 def newUser(password,username):
     password = hash(password)
