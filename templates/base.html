@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang = "en">    
+    <head>
+        <style>      
+                header {
+                    background-color: rgba(0, 61, 80, 0.479);
+                    padding: 20px
+                }
+                body {
+                    background-color: #3c76a6; 
+                    margin: 0;  
+                    padding: 0; 
+                }
+                img {
+                    float: left;
+                    margin-right: 20px;
+                 }
+                h1 {
+                    text-align: "margin-left";
+                    color: black;
+                } 
+        </style>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css\main.css') }}">
+        <table width = "100%" height = "60" bgcolor = "azure">
+            <tr>
+                <td>
+                    <img src="{{ image_url }}" alt="Logo" height="60" width="60">
+                    <h1>Credit Card Defender</h1>
+                </td>
+                <td>
+                    <style>
+                        a {
+                            text-align: "margin-right";
+                            color:black;
+                        }
+                    </style>
+                    {% block head %}{% endblock %}
+                </td>
+            </tr>
+        </table>
+        
+        
+    </head>
+    <body>
+        <style>
+              h2 {
+                text-align: "center";
+                color:white;
+              }    
+              p {
+                text-align: center;
+                color:white;
+              }    
+              h3 {
+                text-align: "center";
+                color:white;
+              }      
+        </style>
+        {% block body %}{% endblock %}
+    </body>
+</html>

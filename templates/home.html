@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<h2>Hello {{userdb.fname}} {{userdb.lname}}</h2>
+{% endblock %}
+
+{% block body %}
+<table>
+    <thead>
+        <tr>
+            <th>Credit Card Info</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in userdb.db %}
+        <tr>
+            <td>{{ item }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
