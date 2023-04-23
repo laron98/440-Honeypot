@@ -14,6 +14,8 @@ class user:
 app = Flask(__name__)
 
 #connects to databases
+sys.path.append('/home/ubuntu/HoneyPotLinkingWork/Temp_Sync_Work')
+import passwordManager.py;
 
 #Home page
 @app.route('/')
