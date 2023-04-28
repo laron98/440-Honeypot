@@ -56,7 +56,7 @@ def getCards(email):
     return rval
 
 def checkEmail(email):
-    c.execute("""SELECT * FROM USER WHERE Email=?""",(email)
+    c.execute("""SELECT * FROM USER WHERE Email=?""",(email))
     result=c.fetchone()
     return len(result)!=0
 def newUser(password,username):
