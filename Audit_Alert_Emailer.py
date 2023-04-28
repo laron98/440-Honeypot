@@ -5,7 +5,7 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 # Replace these variables with your own email and password
-API_KEY = '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'
+API_KEY = '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'
 
 # Define the path of the file you want to monitor
 FILE_PATH = '/var/log/audit/audit.log'
